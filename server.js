@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var routes = require('./routes')
+var routes = require('./App/Config/routes')
 routes(app)
 
 app.listen(3000, () => {
