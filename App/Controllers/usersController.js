@@ -16,10 +16,11 @@ exports.users = function(req, res) {
     let perPage = req.query.perPage || 50
     let totalItems = {};
     connection.query('select * from users', function(error, rows, fields) {
-        if (error) throw error
-        totalItems = rows.length
-    })
-    connection.query(`select * from users limit ${perPage} offset ${(currentPage - 1) * perPage}`, function(error, rows, field) {
+            if (error) throw error
+            totalItems = rows.length
+        })
+        // SELECT DISTINCT first_name, nama_role FROM users INNER JOIN role_categories ON FIND_IN_SET(role_categories.id_role, id_roles) != 0;
+    connection.query(`SELECT DISTINCT users.*, role_categories.nama_role from users INNER JOIN role_categories ON FIND_IN_SET(role_categories.id_role, id_roles) != 0 limit ${perPage} offset ${(currentPage - 1) * perPage}`, function(error, rows, field) {
         if (error) throw error
         let data = {
             'page': currentPage,
@@ -27,7 +28,7 @@ exports.users = function(req, res) {
             'total': totalItems,
             'rows': rows
         }
-        response.ok(data, res)
+        response.nested(data, res)
     })
 }
 

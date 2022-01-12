@@ -11,5 +11,5 @@ var routes = require('./App/Config/routes')
 routes(app)
 
 app.listen(3000, () => {
-    console.log('server is running');
+    console.log('server is running in http://localhost:3000');
 });

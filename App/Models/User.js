@@ -1,6 +1,6 @@
 'use strict'
 
-const conn = require("../Config/koneksi");
+// const conn = require("../Config/koneksi");
 
 exports.ok = function(values, res) {
     var data = {
@@ -13,22 +13,21 @@ exports.ok = function(values, res) {
 }
 
 exports.nested = function(values, res) {
-    //lakukan akumulasi
-    const hasil = values.reduce((akumulasi, val) => {
-        //lakukan key group
-        if (akumulasi[val.fullname]) {
-            const group = akumulasi[val.fullname]
 
-            if (Array.isArray(group.roles)) {
-                group.roles.push(val.roles)
+    const hasil = values.rows.reduce((akumulasikan, item) => {
+        if (akumulasikan[item.first_name]) {
+            const group = akumulasikan[item.first_name]
+
+            if (Array.isArray(group.nama_role)) {
+                group.nama_role.push(item.nama_role);
             } else {
-                group.roles = [group.roles, val.roles]
+                group.nama_role = [group.nama_role, item.nama_role]
             }
         } else {
-            akumulasi[val.fullname] = val
+            akumulasikan[item.first_name] = item
         }
 
-        return akumulasi
+        return akumulasikan
     }, {})
 
     var data = {
@@ -36,6 +35,6 @@ exports.nested = function(values, res) {
         'values': hasil
     }
 
-    conn.json(data)
-    conn.end()
+    res.json(data);
+    res.end();
 }

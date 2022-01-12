@@ -12,6 +12,7 @@ exports.index = function(req, res) {
         totalItems = rows.length
     })
 
+
     conn.query(`select a.id_artikel, a.judul_artikel,a.img_artikel, b.title_category_id as category, a.description, a.text_artikel_page1, a.text_artikel_page2, a.text_artikel_page3 from artikel a join artikel_category b on a.category_artikel = b.id_category limit ${perPage} offset ${(currentPage - 1) * perPage} `, function(error, rows, fields) {
         if (error) throw error
         let data = {
@@ -21,6 +22,8 @@ exports.index = function(req, res) {
             'rows': rows
         };
         response.ok(data, res)
+
+        console.log(totalItems);
     })
 }
 
