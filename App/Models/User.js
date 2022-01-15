@@ -14,7 +14,7 @@ exports.ok = function(values, res) {
 
 exports.nested = function(values, res) {
 
-    const hasil = values.rows.reduce((akumulasikan, item) => {
+    const hasil = values.reduce((akumulasikan, item) => {
         if (akumulasikan[item.first_name]) {
             const group = akumulasikan[item.first_name]
 
@@ -29,6 +29,8 @@ exports.nested = function(values, res) {
 
         return akumulasikan
     }, {})
+
+    console.log(res)
 
     var data = {
         'status': 200,
