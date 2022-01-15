@@ -3,6 +3,7 @@
 module.exports = function(app) {
     var users = require('../Controllers/usersController')
     var artikel = require('../Controllers/artikelController')
+        //var artikel = require('../Middleware/auth')
         // users route
     app.route('/').get(users.index)
     app.route('/users').get(users.users)
@@ -15,6 +16,9 @@ module.exports = function(app) {
     // artikel route
     app.route('/artikel').get(artikel.index)
     app.route('/artikel/:id').get(artikel.getById)
+
+    // registrasu route
+    //app.route('/registrasi').get(auth.registrasi)
 
 
 }
